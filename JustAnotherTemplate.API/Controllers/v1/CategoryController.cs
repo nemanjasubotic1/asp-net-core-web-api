@@ -3,6 +3,7 @@ using JustAnother.DataAccess.Repository.General;
 using JustAnother.Model;
 using JustAnother.Model.Entity;
 using JustAnother.Model.Entity.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -29,8 +30,10 @@ namespace JustAnother.API.Controllers.v1
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllCategories([FromQuery] string? search, int pageSize = 1, int pageNumber = 1)
         {
             try
@@ -66,6 +69,7 @@ namespace JustAnother.API.Controllers.v1
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCategory(int id)
         {
@@ -108,6 +112,7 @@ namespace JustAnother.API.Controllers.v1
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> CreateCategory([FromForm] CategoryCreateDTO categoryCreateDTO)
         {
@@ -156,6 +161,7 @@ namespace JustAnother.API.Controllers.v1
         [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> CreateCategory(int id, [FromForm] CategoryUpdateDTO categoryUpdateDTO)
         {
@@ -195,6 +201,7 @@ namespace JustAnother.API.Controllers.v1
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(int id)
         {

@@ -2,7 +2,7 @@
 using JustAnother.Model.Entity;
 using JustAnother.Model.Entity.DTO;
 
-namespace JustAnother.API;
+namespace JustAnother.API.Utility;
 
 public class MappingConfig : Profile
 {
@@ -12,5 +12,5 @@ public class MappingConfig : Profile
         CreateMap<Category, CategoryUpdateDTO>().ReverseMap();
         CreateMap<Category, CategoryDeleteDTO>().ReverseMap();
     }
-    
+
 }
