@@ -36,7 +36,7 @@ public class UserController : ControllerBase
 
         if (tokenDto == null || string.IsNullOrEmpty(tokenDto.AccessToken))
         {
-           
+
             _apiResponse.StatusCode = HttpStatusCode.BadRequest;
             _apiResponse.IsSuccess = false;
             _apiResponse.ErrorMessages = ["Username or password are incorect"];
@@ -61,7 +61,7 @@ public class UserController : ControllerBase
 
         if (!ifUserNameUnique)
         {
-          
+
             _apiResponse.StatusCode = HttpStatusCode.BadRequest;
             _apiResponse.IsSuccess = false;
             _apiResponse.ErrorMessages = ["Username already exists"];
@@ -85,5 +85,67 @@ public class UserController : ControllerBase
         _apiResponse.IsSuccess = true;
 
         return Ok(_apiResponse);
+    }
+
+
+    [HttpPost("refresh")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetNewTokenFromRefreshToken([FromBody] TokenDTO tokenDTO)
+    {
+        if (ModelState.IsValid)
+        {
+            var tokenDTOResponse = await _userRepository.RefreshAccessToken(tokenDTO);
+
+            if (tokenDTOResponse is null || string.IsNullOrEmpty(tokenDTOResponse.AccessToken))
+            {
+
+                _apiResponse.StatusCode = HttpStatusCode.BadRequest;
+                _apiResponse.IsSuccess = false;
+                _apiResponse.ErrorMessages = ["Invalid token"];
+
+                return BadRequest(_apiResponse);
+            }
+            else
+            {
+
+                _apiResponse.IsSuccess = true;
+                _apiResponse.StatusCode = HttpStatusCode.OK;
+                _apiResponse.Result = tokenDTOResponse;
+
+                return Ok(_apiResponse);
+            }
+
+        }
+        else
+        {
+            _apiResponse.IsSuccess = false;
+            _apiResponse.Result = "Invalid input";
+
+            return BadRequest(_apiResponse);
+        }
+    }
+
+    // to be called on LogOff
+    [HttpPost("revokeRefreshToken")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> RevokeRefreshToken([FromBody] TokenDTO tokenDTO)
+    {
+        if (ModelState.IsValid)
+        {
+            await _userRepository.RevokeRefreshToken(tokenDTO);
+
+            _apiResponse.IsSuccess = true;
+            _apiResponse.StatusCode = HttpStatusCode.OK;
+
+            return Ok(_apiResponse);
+        }
+
+        _apiResponse.IsSuccess = false;
+        _apiResponse.ErrorMessages = ["Invalid input"];
+        _apiResponse.StatusCode = HttpStatusCode.BadRequest;
+
+        return BadRequest(_apiResponse);
     }
 }
