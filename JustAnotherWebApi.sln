@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustAnother.API", "JustAnotherTemplate.API\JustAnother.API.csproj", "{6401445A-EE04-4672-9DAA-2EEF764FBBFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustAnother.Model", "JustAnother.Model\JustAnother.Model.csproj", "{E22FF155-4D10-43D3-B6FF-F6007E447BC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JustAnother.DataAccess", "JustAnother.Data\JustAnother.DataAccess.csproj", "{4DFE6106-E28D-43AC-9059-1EBE7599490F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{6401445A-EE04-4672-9DAA-2EEF764FBBFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6401445A-EE04-4672-9DAA-2EEF764FBBFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6401445A-EE04-4672-9DAA-2EEF764FBBFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E22FF155-4D10-43D3-B6FF-F6007E447BC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E22FF155-4D10-43D3-B6FF-F6007E447BC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E22FF155-4D10-43D3-B6FF-F6007E447BC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E22FF155-4D10-43D3-B6FF-F6007E447BC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DFE6106-E28D-43AC-9059-1EBE7599490F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DFE6106-E28D-43AC-9059-1EBE7599490F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DFE6106-E28D-43AC-9059-1EBE7599490F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DFE6106-E28D-43AC-9059-1EBE7599490F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
