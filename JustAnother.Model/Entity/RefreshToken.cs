@@ -10,5 +10,6 @@ public class RefreshToken
     public string JwtTokenId { get; set; }
     public string Refresh_Token { get; set; }
     public bool IsValid { get; set; }
+    [DateInFuture]
     public DateTime ExipresAt { get; set; }
 }

@@ -30,6 +30,9 @@ public class UserController : ControllerBase
 
 
     [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Login([FromBody] LoginRequestDTO loginRequestDTO)
     {
         var tokenDto = await _userRepository.Login(loginRequestDTO);

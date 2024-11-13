@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
+using JustAnother.API.Utility;
 using JustAnother.DataAccess;
 using JustAnother.DataAccess.Data;
-using JustAnother.Model;
 using JustAnother.Model.Entity;
 using JustAnother.Model.Entity.DTO;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -22,7 +23,6 @@ namespace JustAnother.API.Authorize
         private string secretKey = "";
 
         private readonly UserManager<ApplicationUser> _userManager;
-
 
         public UserRepository(ApplicationDbContext db, IMapper mapper, IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
@@ -70,6 +70,17 @@ namespace JustAnother.API.Authorize
             var roles = await _userManager.GetRolesAsync(user);
 
             var jwtTokenId = $"Jti{Guid.NewGuid()}";
+
+            var refreshToken = await CreateNewRefreshToken(user.Id, jwtTokenId);
+
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                return new TokenDTO()
+                {
+                    AccessToken = "",
+                    RefreshToken = ""
+                };
+            }
 
             TokenDTO tokenDTO = new()
             {
@@ -166,9 +177,14 @@ namespace JustAnother.API.Authorize
                 IsValid = true,
                 UserId = userId,
                 JwtTokenId = accessTokenId,
-                ExipresAt = DateTime.UtcNow.AddMinutes(10),
+                ExipresAt = DateTime.UtcNow.AddMinutes(10), // must be in future date
                 Refresh_Token = Guid.NewGuid() + "-" + Guid.NewGuid(),
             };
+
+            if (!ModelValidator.TryValidate(refreshToken, out List<ValidationResult>? validationResults))
+            {
+                return "";
+            }
 
             await _db.RefreshTokens.AddAsync(refreshToken);
             await _db.SaveChangesAsync();
@@ -213,8 +229,13 @@ namespace JustAnother.API.Authorize
                 return new TokenDTO();
             }
 
-            // Replace existing Refresh Token with newly created Refresh Token, reset expire time counter
+            // Replace existing Refresh Token with newly created Refresh Token, reset expire time
             var newRefreshToken = await CreateNewRefreshToken(existingRefreshToken.UserId, existingRefreshToken.JwtTokenId);
+
+            if (string.IsNullOrEmpty(newRefreshToken))
+            {
+                return new TokenDTO();
+            }
 
             //Revoke existing Refresh Token (invalidate)
             await MarkTokenAsInvalid(existingRefreshToken);
