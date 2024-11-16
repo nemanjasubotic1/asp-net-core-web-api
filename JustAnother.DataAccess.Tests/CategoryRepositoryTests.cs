@@ -16,7 +16,8 @@ public class CategoryRepositoryTests
     private Category categoryOne;
     private Category categoryTwo;
 
-    public CategoryRepositoryTests()
+    [SetUp]
+    public void Setup()
     {
         categoryOne = new()
         {
@@ -31,11 +32,7 @@ public class CategoryRepositoryTests
             Name = "Two",
             Description = "Description of the category two"
         };
-    }
 
-    [SetUp]
-    public void Setup()
-    {
         options = new DbContextOptionsBuilder<ApplicationDbContext>().
         UseInMemoryDatabase(databaseName: "temp_another_database").Options;
 
