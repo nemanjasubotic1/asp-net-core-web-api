@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace JustAnother.DataAccess.Repository.General;
-
 public class Repository<T> : IRepository<T> where T : class
 {
     private readonly ApplicationDbContext _db;
@@ -73,7 +72,6 @@ public class Repository<T> : IRepository<T> where T : class
         }
 
         return await query.FirstOrDefaultAsync();
-
     }
 
     public void Remove(T entity)
