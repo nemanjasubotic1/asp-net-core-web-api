@@ -16,3 +16,6 @@ Features
 •  CRUD Endpoints: Basic API endpoints for Create, Read, Update, and Delete operations.
 
 •  Pagination and Filtering: Implement pagination and filtering for data retrieval.
+
+•  Unit tests using NUnit and MOQ
+
