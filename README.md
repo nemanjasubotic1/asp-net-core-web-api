@@ -11,7 +11,7 @@ Features
 
 •  Repository Pattern with UnitOfWork: Structured data access with repository and unit of work patterns.
 
-•  ASP.NET Identity: Manage user authentication and authorization.
+•  ASP.NET Identity: User management system.
 
 •  CRUD Endpoints: Basic API endpoints for Create, Read, Update, and Delete operations.
 
