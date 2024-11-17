@@ -20,7 +20,7 @@ Features • Entity Framework Core with SQL Server: Integration with SQL Server 
 
 ### Basics
 
-Run *update-database*, then start the application, it will automatically create one Admin:
+Enter valid Connection strings, *update-database*, then start the application, it will automatically create one Admin:
 Username: admin@gmail.com
 Password: admin123
 
