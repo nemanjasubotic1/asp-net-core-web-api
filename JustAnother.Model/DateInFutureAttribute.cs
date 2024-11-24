@@ -17,7 +17,6 @@ public class DateInFutureAttribute : ValidationAttribute
         ErrorMessage = "The date must be in future";
     }
 
-
     public override bool IsValid(object? value)
     {
         bool isValid = false;
@@ -29,7 +28,4 @@ public class DateInFutureAttribute : ValidationAttribute
 
         return isValid;
     }
-
-
-
 }

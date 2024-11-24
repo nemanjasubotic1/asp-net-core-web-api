@@ -5,7 +5,6 @@ using JustAnother.DataAccess.Data;
 using JustAnother.Model.Entity;
 using JustAnother.Model.Entity.DTO;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;

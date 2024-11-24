@@ -2,7 +2,6 @@
 
 namespace JustAnother.Model.Tests;
 
-
 [TestFixture]
 public class DateInFutureAttributeTests
 {
@@ -24,7 +23,5 @@ public class DateInFutureAttributeTests
         var result = "The date must be in future";
 
         Assert.That(result, Is.EqualTo(dateInFutureAttribute.ErrorMessage));
-
     }
-
 }
