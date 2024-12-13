@@ -18,17 +18,17 @@ public class DbInitializer : IDbInitializer
         _userManager = userManager;
     }
 
-    public async void Initialize()
+    public async Task InitializeAsync()
     {
         if (_db.Database.GetPendingMigrations().Any())
         {
             _db.Database.Migrate();
         }
 
-        if (!_roleManager.RoleExistsAsync(StaticDetails.Role_Admin).GetAwaiter().GetResult())
+        if (!await _roleManager.RoleExistsAsync(StaticDetails.Role_Admin))
         {
-            _roleManager.CreateAsync(new IdentityRole(StaticDetails.Role_Admin)).Wait();
-            _roleManager.CreateAsync(new IdentityRole(StaticDetails.Role_User)).Wait();
+            await _roleManager.CreateAsync(new IdentityRole(StaticDetails.Role_Admin));
+            await _roleManager.CreateAsync(new IdentityRole(StaticDetails.Role_User));
 
             ApplicationUser user = new()
             {
@@ -40,7 +40,7 @@ public class DbInitializer : IDbInitializer
                 PhoneNumber = "1234567890",
             };
 
-            var result = _userManager.CreateAsync(user, "admin123").GetAwaiter().GetResult();
+            var result = await _userManager.CreateAsync(user, "admin123");
 
             if (result.Succeeded)
             {

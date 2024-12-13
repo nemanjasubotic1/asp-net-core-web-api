@@ -133,7 +133,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-InitialDatabaseRun();
+await InitialData();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
@@ -144,11 +144,11 @@ app.MapControllers();
 app.Run();
 
 
-void InitialDatabaseRun()
+async Task InitialData()
 {
     using (var scope = app.Services.CreateScope())
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
+        await dbInitializer.InitializeAsync();
     }
 }
